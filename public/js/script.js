@@ -1,5 +1,5 @@
-import uuidV4 from './uuid/dist/esm-browser/v4.js';
-import { debounce } from './throttle-debounce/esm/index.js';
+import { v4 as uuidV4 } from 'uuid';
+import { debounce } from 'throttle-debounce';
 
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
