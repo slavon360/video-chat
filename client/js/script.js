@@ -1,5 +1,6 @@
 import { v4 as uuidV4 } from 'uuid';
 import { debounce } from 'throttle-debounce';
+import '../styles/styles.scss';
 
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
@@ -43,7 +44,8 @@ navigator.mediaDevices.getUserMedia({
 });
 
 myPeer.on('open', id => {
-    socket.emit('join-room:video-chat', roomId, id);
+    const room_id = location.pathname.replace(/\//g, '');
+    socket.emit('join-room:video-chat', room_id, id);
 });
 
 const addVideoStream = (video, stream) => {
