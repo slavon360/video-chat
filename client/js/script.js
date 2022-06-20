@@ -113,6 +113,13 @@ socket.on('user-typing-end', () => {
 
 socket.on('message-received', data => {
     const msg_data = JSON.parse(data);
+    const current_date = new Date(msg_data.date).getDate();
+    const date_element = messagesList.querySelector('.message-item:last-child .text-muted');
+    const prev_date = date_element && date_element.textContent.split(' ')[1];
+
+    if (prev_date < current_date) {
+        insertDateHandler(msg_data.date);
+    }
     createNewMessage(msg_data);
 
     scrollToBottomOfMessagesList();
@@ -121,23 +128,23 @@ socket.on('message-received', data => {
 socket.on('list-room-messages', (messages, user_name) => {
     if (user_name === active_user_name) {
         const msgs_parsed = JSON.parse(messages);
+        let date = null;
 
         msgs_parsed.forEach((message, index, messages) => {
-            if (index) {
-                const prev_msg_day = new Date(messages[index - 1].date).getDate();
-                const next_msg_day = new Date(messages[index].date).getDate();
+            const current_date = new Date(messages[index].date).getDate();
 
-                if (prev_msg_day < next_msg_day) {
-                    insertDate(messages[index].date);
-                }
+            if (date < current_date) {
+                date = current_date;
+                insertDateHandler(messages[index].date);
             }
+
             createNewMessage(message);
         });
         scrollToBottomOfMessagesList();
     }
 });
 
-const insertDate = date => {
+const insertDateHandler = (date) => {
     const formatted_date = new Date(date).toLocaleDateString('en-us', { month: 'long', day: 'numeric' });
     const date_element = document.createElement('div');
 

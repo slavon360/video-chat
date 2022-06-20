@@ -17,6 +17,8 @@ $background-theme: #eee;
         }
 
         .brief-date-container {
+            clear: both;
+
             .brief-date {
                 display: inline-block;
                 padding: 5px 10px;
@@ -24,7 +26,6 @@ $background-theme: #eee;
                 border-radius: 5px;
                 background-color: #fff;
                 color: #888;
-                clear: both;
                 margin-bottom: 10px;
             }
         }
