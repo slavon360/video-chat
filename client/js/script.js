@@ -118,7 +118,7 @@ socket.on('message-received', data => {
     const prev_date = date_element && date_element.textContent.split(' ')[1];
 
     if (prev_date < current_date) {
-        insertDateHandler(msg_data.date);
+        insertDate(msg_data.date);
     }
     createNewMessage(msg_data);
 
@@ -135,7 +135,7 @@ socket.on('list-room-messages', (messages, user_name) => {
 
             if (date < current_date) {
                 date = current_date;
-                insertDateHandler(messages[index].date);
+                insertDate(messages[index].date);
             }
 
             createNewMessage(message);
@@ -144,7 +144,7 @@ socket.on('list-room-messages', (messages, user_name) => {
     }
 });
 
-const insertDateHandler = (date) => {
+const insertDate = (date) => {
     const formatted_date = new Date(date).toLocaleDateString('en-us', { month: 'long', day: 'numeric' });
     const date_element = document.createElement('div');
 
